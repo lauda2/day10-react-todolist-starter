@@ -8,8 +8,13 @@ export const initState = [
 export const TodoContext = createContext();
 
 function ToDoItem(props) {
+  const { state, dispatch } = useContext(TodoContext);
+  function makeAsDone() {
+    dispatch({ type: "TOGGLE_TODO", payload: { id: props.todo.id } });
+  }
+
   return <div className="todo-item">
-    <span className={props.todo.done ? "done" : ""}>{props.todo.text}</span>
+    <span className={props.todo.done ? "done" : ""} onClick={makeAsDone}>{props.todo.text}</span>
   </div>;
 }
 
@@ -20,8 +25,13 @@ function TodoGroup() {
   </div>;
 }
 
-export function todoReducer(state, action) {
-  return state;
+export function TodoReducer(state, action) {
+  switch (action.type) {
+    case "TOGGLE_TODO":
+      return state.map(item => item.id === action.payload.id ? { ...item, done: !item.done } : item);
+    default:
+      return state;
+  }
 }
 
 function App() {
