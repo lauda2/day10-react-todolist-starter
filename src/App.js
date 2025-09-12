@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+import { useContext, createContext, useReducer } from 'react';
 import './App.css';
 
+export const initState = [
+  { id: 1, text: "the first todo", done: false },
+  { id: 2, text: "the second todo", done: false }
+];
+export const TodoContext = createContext();
+
+function ToDoItem(props) {
+  return <div>
+    {props.todo.text}
+  </div>;
+}
+
+function TodoGroup() {
+  const { state, dispatch } = useContext(TodoContext);
+  return <div>
+    {state.map((item, index) => <ToDoItem key={index} todo={item} index={index} />)}
+  </div>;
+}
+
+export function todoReducer(state, action) {
+  return state;
+}
+
 function App() {
+  const [state, dispatch] = useReducer(todoReducer, initState);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TodoContext.Provider value={{ state, dispatch }}>
+        <TodoGroup />
+      </TodoContext.Provider>
     </div>
   );
 }
