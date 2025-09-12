@@ -3,13 +3,13 @@ import './App.css';
 
 export const initState = [
   { id: 1, text: "the first todo", done: false },
-  { id: 2, text: "the second todo", done: false }
+  { id: 2, text: "the second todo", done: true }
 ];
 export const TodoContext = createContext();
 
 function ToDoItem(props) {
-  return <div>
-    {props.todo.text}
+  return <div className="todo-item">
+    <span className={props.todo.done ? "done" : ""}>{props.todo.text}</span>
   </div>;
 }
 
