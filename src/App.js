@@ -1,4 +1,4 @@
-import { useContext, createContext, useReducer } from 'react';
+import { useReducer } from 'react';
 import './App.css';
 import TodoGroup from './components/TodoGroup';
 import TodoContext from './contexts/TodoContext';
