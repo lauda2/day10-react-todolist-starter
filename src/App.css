@@ -36,3 +36,9 @@ main
 {
   text-align: center;
 }
+
+.todo-row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

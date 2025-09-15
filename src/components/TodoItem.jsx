@@ -9,7 +9,7 @@ function ToDoItem(props) {
         dispatch({ type: "TOGGLE_TODO", payload: { id: props.todo.id } });
     }
 
-    return <><div className="todo-item">
+    return <div className="todo-row"><div className="todo-item">
         <span className={props.todo.done ? "done" : ""} onClick={makeAsDone}>{props.todo.text}</span>
     </div>
         <button className="remove-button" onClick={() => {
@@ -17,7 +17,7 @@ function ToDoItem(props) {
         }}>X</button>
         <button className="detail-button" onClick={() => {
             navigate(`/todos/${props.todo.id}`);
-        }}>detail</button><br /></>;
+        }}>detail</button><br /></div>;
 }
 
 export default ToDoItem;
