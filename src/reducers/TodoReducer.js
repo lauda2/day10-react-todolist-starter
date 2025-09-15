@@ -1,6 +1,6 @@
 function TodoReducer(state, action) {
     switch (action.type) {
-        case "TOGGLE_TODO":
+        case "UPDATE_TODO":
             return state.map(item => item.id === action.payload.id ? action.payload : item);
         case "ADD_TODO":
             return [...state, action.payload];
