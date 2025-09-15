@@ -9,13 +9,7 @@ import DefaultLayout from './layouts/DefaultLayout';
 import DoneListPage from './pages/DoneListPage';
 import TodoDetailPage from './pages/TodoDetailPage';
 import AboutUsPage from './pages/AboutUsPage';
-import axios from 'axios';
-
-const api = axios.create({
-  baseURL: "https://68c7ac9e5d8d9f51473288db.mockapi.io/",
-  headers: { "Content-Type": "application/json" },
-  timeout: 10000
-});
+import { api } from './api/mockApi';
 
 const routes = createBrowserRouter([
   {
@@ -54,7 +48,7 @@ function App() {
       .catch(error => {
         console.error("Error fetching todos:", error);
       });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">

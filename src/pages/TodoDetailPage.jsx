@@ -6,7 +6,7 @@ import ToDoItem from "../components/TodoItem";
 function TodoDetailPage() {
   const { id } = useParams();
   const { state } = useContext(TodoContext);
-  const todo = state.find(item => item.id === parseInt(id));
+  const todo = state.find(item => item.id === id);
   return <div><h1>Todo Detail</h1>{todo ? <ToDoItem todo={todo} /> : "Todo not found"}</div>;
 }
 
