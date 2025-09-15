@@ -6,6 +6,8 @@ function TodoReducer(state, action) {
             return [...state, action.payload];
         case "REMOVE_TODO":
             return state.filter(item => item.id !== action.payload.id);
+        case "SET_TODOS":
+            return action.payload;
         default:
             return state;
     }

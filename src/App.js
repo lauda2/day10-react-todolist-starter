@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 import './App.css';
 import TodoContext from './contexts/TodoContext';
 import TodoReducer from './reducers/TodoReducer';
@@ -9,6 +9,13 @@ import DefaultLayout from './layouts/DefaultLayout';
 import DoneListPage from './pages/DoneListPage';
 import TodoDetailPage from './pages/TodoDetailPage';
 import AboutUsPage from './pages/AboutUsPage';
+import axios from 'axios';
+
+const api = axios.create({
+  baseURL: "https://68c7ac9e5d8d9f51473288db.mockapi.io/",
+  headers: { "Content-Type": "application/json" },
+  timeout: 10000
+});
 
 const routes = createBrowserRouter([
   {
@@ -36,10 +43,18 @@ const routes = createBrowserRouter([
   }
 ]);
 
-export const initState = [];
-
 function App() {
-  const [state, dispatch] = useReducer(TodoReducer, initState);
+  const [state, dispatch] = useReducer(TodoReducer, []);
+
+  useEffect(() => {
+    api.get("/todos")
+      .then(response => {
+        dispatch({ type: "SET_TODOS", payload: response.data });
+      })
+      .catch(error => {
+        console.error("Error fetching todos:", error);
+      });
+  }, []);
 
   return (
     <div className="App">
