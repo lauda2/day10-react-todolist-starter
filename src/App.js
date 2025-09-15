@@ -37,17 +37,22 @@ const routes = createBrowserRouter([
   }
 ]);
 
+const loadTodos = () => {
+  return api.get("/todos")
+    .then(response => response.data)
+    .catch(error => {
+      console.error("Error fetching todos:", error);
+      return [];
+    });
+}
+
 function App() {
   const [state, dispatch] = useReducer(TodoReducer, []);
 
   useEffect(() => {
-    api.get("/todos")
-      .then(response => {
-        dispatch({ type: "SET_TODOS", payload: response.data });
-      })
-      .catch(error => {
-        console.error("Error fetching todos:", error);
-      });
+    loadTodos().then(todos => {
+      dispatch({ type: "SET_TODOS", payload: todos });
+    });
   }, [dispatch]);
 
   return (
