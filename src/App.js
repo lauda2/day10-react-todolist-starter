@@ -3,26 +3,18 @@ import './App.css';
 import TodoContext from './contexts/TodoContext';
 import TodoReducer from './reducers/TodoReducer';
 import { RouterProvider } from 'react-router';
-import { api } from './api/mockApi';
 import { routes } from './routes/routes';
-
-const loadTodos = () => {
-  return api.get("/todos")
-    .then(response => response.data)
-    .catch(error => {
-      console.error("Error fetching todos:", error);
-      return [];
-    });
-}
+import { useTodoService } from './useTodoService';
 
 function App() {
   const [state, dispatch] = useReducer(TodoReducer, []);
+  const { loadTodos } = useTodoService();
 
   useEffect(() => {
     loadTodos().then(todos => {
       dispatch({ type: "SET_TODOS", payload: todos });
     });
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="App">

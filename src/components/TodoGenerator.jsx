@@ -1,19 +1,11 @@
 import { useContext, useState } from 'react';
 import TodoContext from "../contexts/TodoContext";
-import { api } from '../api/mockApi';
+import { useTodoService } from '../useTodoService';
 
 function TodoGenerator() {
     const { dispatch } = useContext(TodoContext);
     const [text, setText] = useState("");
-
-    const createTodo = (text) => {
-        return api.post("/todos", { text: text, done: false })
-            .then(response => response.data)
-            .catch(error => {
-                console.error("Error adding todo:", error);
-                return null;
-            });
-    }
+    const { createTodo } = useTodoService();
 
     const handleSubmit = (e) => {
         e.preventDefault();
