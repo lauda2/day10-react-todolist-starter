@@ -2,19 +2,14 @@ import { NavLink, Outlet } from "react-router";
 import { Menu } from 'antd';
 
 function DefaultLayout() {
+  const menuItems = [
+    { key: 'home', label: <NavLink to="/">Home</NavLink> },
+    { key: 'done', label: <NavLink to="/done">Done List</NavLink> },
+    { key: 'about', label: <NavLink to="/about">About Us</NavLink> },
+  ];
   return (
     <div>
-      <Menu mode="horizontal">
-        <Menu.Item key="home">
-          <NavLink to="/">Home</NavLink>
-        </Menu.Item>
-        <Menu.Item key="done">
-          <NavLink to="/done">Done List</NavLink>
-        </Menu.Item>
-        <Menu.Item key="about">
-          <NavLink to="/about">About Us</NavLink>
-        </Menu.Item>
-      </Menu>
+      <Menu mode="horizontal" items={menuItems} />
       <main>
         <Outlet />
       </main>

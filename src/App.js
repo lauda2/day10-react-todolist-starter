@@ -14,6 +14,7 @@ function App() {
     loadTodos().then(todos => {
       dispatch({ type: "SET_TODOS", payload: todos });
     });
+    // eslint-disable-next-line
   }, []);
 
   return (
