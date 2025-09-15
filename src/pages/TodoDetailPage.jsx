@@ -7,7 +7,7 @@ function TodoDetailPage() {
   const { id } = useParams();
   const { state } = useContext(TodoContext);
   const todo = state.find(item => item.id === parseInt(id));
-  return <div>{todo ? <ToDoItem todo={todo} /> : "Todo not found"}</div>;
+  return <div><h1>Todo Detail</h1>{todo ? <ToDoItem todo={todo} /> : "Todo not found"}</div>;
 }
 
 export default TodoDetailPage;

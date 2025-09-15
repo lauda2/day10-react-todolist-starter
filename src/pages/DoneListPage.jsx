@@ -6,7 +6,7 @@ function DoneListPage() {
     const { state } = useContext(TodoContext);
 
     const done = state.filter(item => item.done);
-    return <div>
+    return <div><h1>Done List</h1>
         {done.length === 0 ? <p>No done tasks</p> : done.map((item, index) => <ToDoItem key={index} todo={item} index={index} />)}
     </div>;
 };
