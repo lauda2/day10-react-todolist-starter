@@ -1,41 +1,14 @@
-import { useReducer, useContext } from 'react';
+import { useReducer } from 'react';
 import './App.css';
 import TodoContext from './contexts/TodoContext';
 import TodoReducer from './reducers/TodoReducer';
-import { createBrowserRouter, NavLink, Outlet, RouterProvider, useParams } from 'react-router';
+import { createBrowserRouter, RouterProvider } from 'react-router';
 import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
-import ToDoItem from './components/TodoItem';
-
-function DefaultLayout() {
-  return (
-    <div>
-      <header>
-        <nav>
-          <ul>
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/todos/1">ID 1</NavLink>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <main>
-        <Outlet />
-      </main>
-    </div>
-  );
-}
-
-function TodoDetailPage() {
-  const { id } = useParams();
-  const { state } = useContext(TodoContext);
-  const todo = state.find(item => item.id === parseInt(id));
-  return <div>{todo ? <ToDoItem todo={todo} /> : "Todo not found"}</div>;
-}
-
+import DefaultLayout from './layouts/DefaultLayout';
+import DoneListPage from './pages/DoneListPage';
+import TodoDetailPage from './pages/TodoDetailPage';
+import AboutUsPage from './pages/AboutUsPage';
 
 const routes = createBrowserRouter([
   {
@@ -50,6 +23,14 @@ const routes = createBrowserRouter([
       {
         path: "/todos/:id",
         element: <TodoDetailPage />
+      },
+      {
+        path: "/done",
+        element: <DoneListPage />
+      },
+      {
+        path: "/about",
+        element: <AboutUsPage />
       }
     ]
   }
