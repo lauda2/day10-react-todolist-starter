@@ -26,8 +26,8 @@ function ToDoItem(props) {
     }
 
     function makeAsDone() {
-        updateTodo({ ...props.todo, done: !props.todo.done }).then(() => {
-            dispatch({ type: "TOGGLE_TODO", payload: { id: props.todo.id } });
+        updateTodo({ ...props.todo, done: !props.todo.done }).then(todo => {
+            dispatch({ type: "TOGGLE_TODO", payload: todo });
         });
     }
 
