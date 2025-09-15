@@ -7,24 +7,34 @@ function ToDoItem(props) {
     const { dispatch } = useContext(TodoContext);
     const navigate = useNavigate();
 
-    function makeAsDone() {
-        api.put(`/todos/${props.todo.id}`, { ...props.todo, done: !props.todo.done })
-            .then(() => {
-                dispatch({ type: "TOGGLE_TODO", payload: { id: props.todo.id } });
-            })
+    const updateTodo = (updatedTodo) => {
+        return api.put(`/todos/${updatedTodo.id}`, updatedTodo)
+            .then(response => response.data)
             .catch(error => {
                 console.error("Error updating todo:", error);
+                return null;
             });
     }
 
-    function handleDelete() {
-        api.delete(`/todos/${props.todo.id}`)
-            .then(() => {
-                dispatch({ type: "REMOVE_TODO", payload: { id: props.todo.id } });
-            })
+    const deleteTodo = (id) => {
+        return api.delete(`/todos/${id}`)
+            .then(response => response.data)
             .catch(error => {
                 console.error("Error deleting todo:", error);
+                return null;
             });
+    }
+
+    function makeAsDone() {
+        updateTodo({ ...props.todo, done: !props.todo.done }).then(() => {
+            dispatch({ type: "TOGGLE_TODO", payload: { id: props.todo.id } });
+        });
+    }
+
+    function handleDelete() {
+        deleteTodo(props.todo.id).then(() => {
+            dispatch({ type: "REMOVE_TODO", payload: { id: props.todo.id } });
+        });
     }
 
 
