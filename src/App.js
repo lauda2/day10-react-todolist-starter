@@ -32,7 +32,7 @@ function DefaultLayout() {
 function TodoDetailPage() {
   const { id } = useParams();
   const { state } = useContext(TodoContext);
-  const todo = state.find(item => item.id == id);
+  const todo = state.find(item => item.id === id);
   return <div>{todo ? <ToDoItem todo={todo} /> : "Todo not found"}</div>;
 }
 
