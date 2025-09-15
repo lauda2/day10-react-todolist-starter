@@ -5,17 +5,25 @@ import { api } from '../api/mockApi';
 function TodoGenerator() {
     const { dispatch } = useContext(TodoContext);
     const [text, setText] = useState("");
+
+    const createTodo = (text) => {
+        return api.post("/todos", { text: text, done: false })
+            .then(response => response.data)
+            .catch(error => {
+                console.error("Error adding todo:", error);
+                return null;
+            });
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (text.trim()) {
-            api.post("/todos", { text: text, done: false })
-                .then(response => {
-                    dispatch({ type: "ADD_TODO", payload: response.data });
+            createTodo(text).then(newTodo => {
+                if (newTodo) {
+                    dispatch({ type: "ADD_TODO", payload: newTodo });
                     setText("");
-                })
-                .catch(error => {
-                    console.error("Error adding todo:", error);
-                });
+                }
+            });
         }
     };
 
